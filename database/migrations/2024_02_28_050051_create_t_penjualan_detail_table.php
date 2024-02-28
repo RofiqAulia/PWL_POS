@@ -9,10 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('t_penjualan_detail', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('detail_id');
+            $table->unsignedBigInteger('penjualan_id');
+            $table->foreign('penjualan_id')->references('penjualan_id')->on('t_penjualan');
+            $table->unsignedBigInteger('barang_id');
+            $table->foreign('barang_id')->references('barang_id')->on('m_barang');
+            $table->integer('harga');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }
