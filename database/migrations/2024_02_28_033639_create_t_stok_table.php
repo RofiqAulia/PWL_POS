@@ -12,17 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('t_stok', function (Blueprint $table) {
-            $table->id('stok_id');
-            $table->unsignedBigInteger('barang_id',20);
-            $table->unsignedBigInteger('user_id',20)->unique();
-            $table->datetime('stok_tanggal');
-            $table->int('stok_jumlah',11);
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->bigIncrements('stok_id');
+            $table->unsignedBigInteger('barang_id');
+            $table->unsignedBigInteger('user_id');
+            $table->dateTime('stok_tanggal');
+            $table->integer('stok_jumlah');
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */
