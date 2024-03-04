@@ -14,29 +14,29 @@ class BarangSeeder extends Seeder
     public function run(): void
     {
         // Data seed untuk tabel m_barang
-        $barangData = [
+        $Data = [
             [
                 'barang_id' => 1, // Sesuaikan dengan ID kategori Digital
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'barang_id' => 1, // Sesuaikan dengan ID kategori Elektronik
+                'barang_id' => 2, // Sesuaikan dengan ID kategori Elektronik
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'barang_id' => 2, // Sesuaikan dengan ID kategori Plastik
+                'barang_id' => 3, // Sesuaikan dengan ID kategori Plastik
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'barang_id' => 2, // Sesuaikan dengan ID kategori Fashion
+                'barang_id' => 4, // Sesuaikan dengan ID kategori Fashion
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'barang_id' => 3, // Sesuaikan dengan ID kategori Barang
+                'barang_id' => 5, // Sesuaikan dengan ID kategori Barang
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -44,6 +44,6 @@ class BarangSeeder extends Seeder
         ];
 
         // Masukkan data seed ke dalam tabel m_barang
-        DB::table('m_barang')->insert($barangData);
+        DB::table('m_barang')->insert($Data);
     }
 }
