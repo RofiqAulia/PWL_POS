@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('t_penjualan', function (Blueprint $table) {
-            $table->id('penjualan_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('user_id')->on('m_user');
-            $table->string('pembeli', 50);
-            $table->string('penjualan_kode', 20);
-            $table->dateTime('penjualan_tanggal');
+        Schema::create('t_penjualan_detail', function (Blueprint $table) {
+            $table->id('detail_id');
+            $table->unsignedBigInteger('penjualan_id')->index();
+            $table->unsignedBigInteger('barang_id')->index();
+            $table->integer('harga');
+            $table->integer('jumlah');
             $table->timestamps();
+
+            $table->foreign('penjualan_id')->references('penjualan_id')->on('t_penjualan');
+            $table->foreign('barang_id')->references('barang_id')->on('m_barang');
         });
     }
     
