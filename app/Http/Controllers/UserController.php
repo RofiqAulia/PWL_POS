@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\hash;
 class UserController extends Controller
 {
    
-    
+    // public function index()
+    // {
+    //     $user = UserModel::find(1);
+    //     return view('user', ['data' => $user]);
+    // }
     public function index() {   
 
         $data = [
@@ -22,21 +26,21 @@ class UserController extends Controller
         UserModel::create($data);
 
         $user = UserModel::all();
-        return view('user', ['data'=>$user]);
-        $user->isDirty(); // cek apakah data yang diubah sudah berbeda dengan data sebelumnya atau tidak
-        //Tambah data user dengan eloquent Model
-        // $data =[
-        //     'username' => 'customer-1',
-        //     'nama' => 'pelanggan',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 4
-        // ];
+        return view('user', ['data'=> $user]);
+    //     $user->isDirty(); // cek apakah data yang diubah sudah berbeda dengan data sebelumnya atau tidak
+    //     //Tambah data user dengan eloquent Model
+    //     // $data =[
+    //     //     'username' => 'customer-1',
+    //     //     'nama' => 'pelanggan',
+    //     //     'password' => Hash::make('12345'),
+    //     //     'level_id' => 4
+    //     // ];
         
-        // UserModel::where('username', 'customer-1')->insert($data);//tambahkan data ke tabel m_user
+    //     // UserModel::where('username', 'customer-1')->insert($data);//tambahkan data ke tabel m_user
 
 
-        // //coba akses model UserModel
-        // $user = UserModel::all();
-        // return view('user.index',['data'=>$user]);
+    //     // //coba akses model UserModel
+    //     // $user = UserModel::all();
+    //     // return view('user.index',['data'=>$user]);
     }
 }
