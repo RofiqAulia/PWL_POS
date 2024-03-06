@@ -6,13 +6,16 @@ use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\hash;
 
+
 class UserController extends Controller
 {
+
    
     // Praktikum 2.2
     public function index()
     {
-        $user = UserModel::where('username', 'manager3')->findOrFail();
+        // $user = UserModel::where('username', 'manager9')->findOrFail();
+        $user = UserModel::where('level_id', 2)->count();
         return view('user', ['data'=> $user]);
     }
 
@@ -20,9 +23,9 @@ class UserController extends Controller
     // public function index()
     // {
 
-    //     $user = UserModel::findOr(1, ['username','nama'], function(){
-    //         abort(404);
-    //     });
+    //     // $user = UserModel::findOr(1, ['username','nama'], function(){
+    //     //     abort(404);
+    //     // });
     //     // $user = UserModel::findOr(1, function(){
     //     //     // ...
     //     // });
