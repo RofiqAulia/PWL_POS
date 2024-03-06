@@ -23,6 +23,7 @@ class UserController extends Controller
 
         $user = UserModel::all();
         return view('user', ['data'=>$user]);
+        $user->isDirty(); // cek apakah data yang diubah sudah berbeda dengan data sebelumnya atau tidak
         //Tambah data user dengan eloquent Model
         // $data =[
         //     'username' => 'customer-1',
