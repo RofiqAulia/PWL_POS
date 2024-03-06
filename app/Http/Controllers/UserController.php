@@ -14,10 +14,12 @@ class UserController extends Controller
     // Praktikum 2.2
     public function index()
     {
-        // $user = UserModel::where('username', 'manager9')->findOrFail();
-        $user = UserModel::where('level_id', 2)->count();
+        $user = UserModel::where('level_id', 2)->pluck('level_id');
+    
         return view('user', ['data'=> $user]);
     }
+    
+    
 
     // Praktikum 2.1
     // public function index()
