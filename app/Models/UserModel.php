@@ -17,5 +17,5 @@ class UserModel extends Model
      * The atributes that are mass assignable
      * @var array
      */
-    protected $fillable =['level_id', 'username', 'nama'];
+    protected $fillable =['level_id', 'username', 'nama', 'password'];
 }

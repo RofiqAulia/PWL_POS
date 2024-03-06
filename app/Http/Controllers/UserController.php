@@ -22,7 +22,6 @@ class UserController extends Controller
             'nama' => 'Manager 3',
             'password' => Hash::make('12345')
         ];
-
         UserModel::create($data);
 
         $user = UserModel::all();
