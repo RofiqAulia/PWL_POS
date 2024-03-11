@@ -10,14 +10,22 @@ use Illuminate\Support\Facades\hash;
 class UserController extends Controller
 {
 
-   
+   //Praktikum 2.4
+   public function index(){
+    $user = UserModel::firstOrCreate(
+        [
+            'username' => 'manager',
+            'nama' => 'Manager',
+        ]
+        );
+   }
     // Praktikum 2.2
-    public function index()
-    {
-        $user = UserModel::where('level_id', 2)->count();
+    // public function index()
+    // {
+    //     $user = UserModel::where('level_id', 2)->count();
     
-        return view('user', ['data'=> $user]);
-    }
+    //     return view('user', ['data'=> $user]);
+    // }
     
     
 
