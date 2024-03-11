@@ -10,20 +10,67 @@ use Illuminate\Support\Facades\hash;
 class UserController extends Controller
 {
 
-   //Praktikum 2.4
-   public function index()
-   {
-        $user = UserModel::firstOrNew(
-            [
-                'username' => 'manager33',
-                'nama' => 'Manager Tiga Tiga',
-                'password' => Hash::make('12345'),
-                'level_id' => 2
-            ],
-        );
-        $user->save();
-        return view('user', ['data' => $user]);
-   }
+       //Praktikum 2.5
+       public function index()
+       {
+            $user = UserModel::create([
+                'username' =>'manager11',
+                'nama' =>'Manager11',
+                'password' =>Hash::make('12345'),
+                'level_id' =>2
+            ]);
+            $user->username = 'manager12';
+
+            $user->save();
+
+            $user->wasChanged(); //true
+            $user->wasChanged('username'); //false
+            $user->wasChanged(['username', 'level_id']); //true
+            $user->wasChanged('nama'); //false
+            dd($user->wasChanged(['nama', 'username'])); //true 
+          }
+//    public function index()
+//    {
+//         $user = UserModel::firstOrNew(
+//             [
+//                 'username' => 'manager55',
+//                 'nama' => 'Manager55',
+//                 'password' => Hash::make('12345'),
+//                 'level_id' => 2
+//             ],
+//         );
+//         $user->username = 'manager56';
+
+//         $user->isDirty();
+//         $user->isDirty('username');
+//         $user->isDirty('nama');
+//         $user->isDirty(['nama','username']);
+
+//         $user->isClean();
+//         $user->isClean('username');
+//         $user->isClean('nama');
+//         $user->isClean(['nama', 'username']);    
+
+//         $user->save();
+
+//         $user->isDirty(); //false
+//         $user->isClean(); //true
+//         dd($user->isDirty());
+//     }
+//    //Praktikum 2.4
+//    public function index()
+//    {
+//         $user = UserModel::firstOrNew(
+//             [
+//                 'username' => 'manager33',
+//                 'nama' => 'Manager Tiga Tiga',
+//                 'password' => Hash::make('12345'),
+//                 'level_id' => 2
+//             ],
+//         );
+//         $user->save();
+//         return view('user', ['data' => $user]);
+//    }
 //    public function index()
 //    {
 //         $user = UserModel::firstOrCreate(
