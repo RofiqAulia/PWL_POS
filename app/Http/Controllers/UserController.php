@@ -18,6 +18,7 @@ class UserController extends Controller
             'nama' => 'Manager',
         ]
         );
+        return view('user', ['data' => $user]);
    }
     // Praktikum 2.2
     // public function index()
