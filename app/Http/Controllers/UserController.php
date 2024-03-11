@@ -11,15 +11,17 @@ class UserController extends Controller
 {
 
    //Praktikum 2.4
-   public function index(){
-    $user = UserModel::firstOrCreate(
-        [
-            'username' => 'manager22',
-            'nama' => 'Manager Dua Dua',
-            'password' => Hash::make('12345'),
-            'level_id' => 2
-        ],
+   public function index()
+   {
+        $user = UserModel::firstOrCreate(
+            [
+                'username' => 'manager22',
+                'nama' => 'Manager Dua Dua',
+                'password' => Hash::make('12345'),
+                'level_id' => 2
+            ],
         );
+        
         return view('user', ['data' => $user]);
    }
     // Praktikum 2.2
