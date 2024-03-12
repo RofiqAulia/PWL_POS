@@ -9,12 +9,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // Praktikum 2.6
+    // Praktikum 2.7
     public function index()
     {
-        $user = UserModel::all();
-        return view('user', ['data' => $user]);
+        $user = UserModel::with('level')->get();
+        return view('user', ['data'=>$user]);
     }
+
+    // Praktikum 2.6
+    // public function index()
+    // {
+    //     $user = UserModel::all();
+    //     return view('user', ['data' => $user]);
+    // }
 
     public function tambah()
     {
@@ -36,7 +43,7 @@ class UserController extends Controller
     public function ubah($id)
     {
 
-        $user = UserModel::find($id);
+        $user = UserModel::find($id );
         return view('user_ubah', ['data' => $user]);
     }
     public function ubah_simpan($id, Request $request)
