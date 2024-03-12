@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    
     // Praktikum 2.7
     public function index()
     {
