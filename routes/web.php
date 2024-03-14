@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Routing\RouteFileRegistrar;
 
 
 Route::get('/', function () {
@@ -27,10 +27,11 @@ Route::get('/hello', function () {
 });
 Route::get('/hello',[WelcomeController::class, 'hello']);
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/Kategori/create', [KategoriController::class, 'create']);
+Route::post('/Kategori', [KategoriController::class, 'store']);
