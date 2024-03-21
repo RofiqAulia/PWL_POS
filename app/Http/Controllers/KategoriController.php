@@ -21,13 +21,48 @@ class KategoriController extends Controller
 
     public function store(Request $request)
     {
-        kategoriModel::create([
-            'kategori_kode' => $request->KodeKategori,
+        // Validasi data yang diterima dari form
+        $request->validate([
+            'kodeKategori' => 'required',
+            'namaKategori' => 'required',
+        ]);
+
+        // Buat data kategori baru berdasarkan input dari form
+        KategoriModel::create([
+            'kategori_kode' => $request->kodeKategori,
             'kategori_nama' => $request->namaKategori,
         ]);
-        
+
+        // Redirect ke halaman kategori setelah berhasil menyimpan data
         return redirect('/kategori');
     }
+    public function update($id)
+    {
+        $kategori = KategoriModel::find($id);
+        return view('kategori.update', ['data' => $kategori]);
+    }
+
+    public function update_save($id, Request $request)
+    {
+        $kategori = KategoriModel::find($id);
+
+        $kategori->kategori_kode = $request->kodeKategori;
+        $kategori->kategori_nama = $request->namaKategori;
+
+        $kategori->save();
+
+        return redirect('/kategori');
+    }
+
+    public function delete($id)
+    {
+        $kategori = KategoriModel::find($id);
+        $kategori->delete();
+
+        return redirect('/kategori');
+    }
+}
+
     // public function index()
     // {
     //     // $data = [
@@ -45,4 +80,4 @@ class KategoriController extends Controller
     //     // $data = DB::table('m_kategori')->get();
     //     // return view('kategori', ['data'=>$data]);
     // }
-}
+

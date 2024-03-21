@@ -2,9 +2,9 @@
 
 {{-- Customize layout sections --}}
 
-@section('subtitle', 'Kategori');
+@section('subtitle', 'kategori');
 @section('content_header_title', 'Home');
-@section('content_header_subtitle', 'Kategori');
+@section('content_header_subtitle', 'kategori');
 
 @section('content')
     <div class="container">

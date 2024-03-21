@@ -33,5 +33,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/Kategori/create', [KategoriController::class, 'create']);
-Route::post('/Kategori', [KategoriController::class, 'store']);
+Route::get('/kategori/create', [KategoriController::class, 'create']);
+Route::post('/kategori', [KategoriController::class, 'store']);
+Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori-create');
+Route::get('/kategori/update/{id}', [KategoriController::class, 'update']);
+Route::put('/kategori/{id}', [KategoriController::class, 'update_save']);
+Route::get('/kategori/delete/{id}', [KategoriController::class, 'delete']);
