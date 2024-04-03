@@ -22,11 +22,12 @@ class KategoriController extends Controller
         return view('kategori.create');
     }
 
+    
     public function store(Request $request): RedirectResponse
     {
         // Validasi data yang diterima dari form
-        $request->validate([
-            'kodeKategori' => 'required',
+        $validated = $request->validate([
+            'kodeKategori' => 'bail|required|unique:m_kategori,kategori_kode',
             'namaKategori' => 'required',
         ]);
 
@@ -36,9 +37,20 @@ class KategoriController extends Controller
             'kategori_nama' => $request->namaKategori,
         ]);
 
+        if (!$validated) {
+            return redirect('/kategori/create')->withInput()->withErrors($validated);
+        }
+
+        kategoriModel::create([
+            'kategori_kode' => $request->KodeKategori,
+            'kategori_nama' => $request->namaKategori
+        ]);
+
         // Redirect ke halaman kategori setelah berhasil menyimpan data
         return redirect('/kategori');
     }
+
+
     public function update($id)
     {
         $kategori = KategoriModel::find($id);
@@ -65,22 +77,4 @@ class KategoriController extends Controller
         return redirect('/kategori');
     }
 }
-
-    // public function index()
-    // {
-    //     // $data = [
-    //     //     'kategori_kode' => 'SNK',
-    //     //     'kategori_nama' => 'Snack/Makanan Ringan',
-    //     //     'created_at' => now()
-    //     // ];
-
-    //     // DB::table('m_kategori')->insert($data);
-    //     // return 'Insert data baru berhasil';
-
-    //     // $row = DB::table('m_kategori') ->where('kategori_kode', 'SNK') ->update(['kategori_nama'=>'camilan']);
-    //     // return 'Update data berhasil. Jumlah data yang di update: '. $row. ' baris';
-
-    //     // $data = DB::table('m_kategori')->get();
-    //     // return view('kategori', ['data'=>$data]);
-    // }
 
