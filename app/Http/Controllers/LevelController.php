@@ -146,7 +146,7 @@ class LevelController extends Controller
 
             return redirect('/level')->with('success', 'Data level berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/level')->with('error', 'Data level gagal dihapus' . $e->getMessage());
+            return redirect('/level')->with('error', 'Data level gagal dihapus');
         }
     }
 }

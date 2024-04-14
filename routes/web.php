@@ -3,7 +3,6 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
-use App\Http\Controllers\MUserController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\POSController;
 use App\Http\Controllers\StokController;
@@ -54,7 +53,10 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/{id}/edit', [UserController::class, 'edit']); //menampilkan halaman form edit user
     Route::put('/{id}', [UserController::class, 'update']); //menyimpan perubahan data user
     Route::delete('/{id}', [UserController::class, 'destroy']); //menghapus data user
+    Route::get('/formUser', [UserController::class, 'formUser']);
+    Route::get('/formLevel', [UserController::class, 'formLevel']);
 });
+
 
 Route::group(['prefix' => 'level'], function () {
     Route::get('/', [LevelController::class, 'index']); //menampilkan halaman awal level
@@ -71,10 +73,7 @@ Route::group(['prefix' => 'level'], function () {
 
 Route::resource('m_user', POSController::class);
 
-Route::get('/formUser', [UserController::class, 'formUser']);
-Route::get('/formLevel', [UserController::class, 'formLevel']);
-
-// this route for barang data
+// Route barang data
 Route::group(['prefix' => 'barang'], function () {
     Route::get('/', [BarangController::class, 'index']);
     Route::post('/list', [BarangController::class, 'list']);
@@ -85,7 +84,7 @@ Route::group(['prefix' => 'barang'], function () {
     Route::put('/{id}', [BarangController::class, 'update']);
     Route::delete('/{id}', [BarangController::class, 'destroy']);
 });
-// this route for stok data
+// Route stok data
 Route::group(['prefix' => 'stok'], function () {
     Route::get('/', [StokController::class, 'index']);
     Route::post('/list', [StokController::class, 'list']);
@@ -96,7 +95,7 @@ Route::group(['prefix' => 'stok'], function () {
     Route::put('/{id}', [StokController::class, 'update']);
     Route::delete('/{id}', [StokController::class, 'destroy']);
 });
-// this route for penjualan data
+// Route penjualan data
 Route::group(['prefix' => 'penjualan'], function () {
     Route::get('/', [PenjualanController::class, 'index']);
     Route::post('/list', [PenjualanController::class, 'list']);
