@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\LevelController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LevelController;
+use App\Http\Controllers\MUserController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\POSController;
+use App\Http\Controllers\StokController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\POSController;
-use App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\RouteFileRegistrar;
 
 
 Route::get('/', function () {
@@ -71,3 +73,38 @@ Route::resource('m_user', POSController::class);
 
 Route::get('/formUser', [UserController::class, 'formUser']);
 Route::get('/formLevel', [UserController::class, 'formLevel']);
+
+// this route for barang data
+Route::group(['prefix' => 'barang'], function () {
+    Route::get('/', [BarangController::class, 'index']);
+    Route::post('/list', [BarangController::class, 'list']);
+    Route::get('/create', [BarangController::class, 'create']);
+    Route::post('/', [BarangController::class, 'store']);
+    Route::get('/{id}', [BarangController::class, 'show']);
+    Route::get('/{id}/edit', [BarangController::class, 'edit']);
+    Route::put('/{id}', [BarangController::class, 'update']);
+    Route::delete('/{id}', [BarangController::class, 'destroy']);
+});
+// this route for stok data
+Route::group(['prefix' => 'stok'], function () {
+    Route::get('/', [StokController::class, 'index']);
+    Route::post('/list', [StokController::class, 'list']);
+    Route::get('/create', [StokController::class, 'create']);
+    Route::post('/', [StokController::class, 'store']);
+    Route::get('/{id}', [StokController::class, 'show']);
+    Route::get('/{id}/edit', [StokController::class, 'edit']);
+    Route::put('/{id}', [StokController::class, 'update']);
+    Route::delete('/{id}', [StokController::class, 'destroy']);
+});
+// this route for penjualan data
+Route::group(['prefix' => 'penjualan'], function () {
+    Route::get('/', [PenjualanController::class, 'index']);
+    Route::post('/list', [PenjualanController::class, 'list']);
+    Route::get('/create', [PenjualanController::class, 'create']);
+    Route::get('/get-harga/{id}', [PenjualanController::class, 'getHarga']);
+    Route::post('/', [PenjualanController::class, 'store']);
+    Route::get('/{id}', [PenjualanController::class, 'show']);
+    Route::get('/{id}/edit', [PenjualanController::class, 'edit']);
+    Route::put('/{id}', [PenjualanController::class, 'update']);
+    Route::delete('/{id}', [PenjualanController::class, 'destroy']);
+});
