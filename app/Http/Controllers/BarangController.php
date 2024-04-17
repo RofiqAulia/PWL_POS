@@ -29,15 +29,12 @@ class BarangController extends Controller
     }
     public function list(Request $request)
     {
-        $barangs = m_barang::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'kategori_id', 'kategori_nama')->with('kategori');
+        $barangs = m_barang::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'kategori_id')->with('kategori');
 
         if ($request->kategori_id) {
             $barangs->where('kategori_id', $request->kategori_id);
         }
 
-        if ($request->kategori_nama) {
-            $barangs->where('kategori_nama', $request->kategori_nama);
-        }
         return DataTables::of($barangs)
             ->addIndexColumn()
             ->addColumn('aksi', function ($barang) {
@@ -66,14 +63,14 @@ class BarangController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'barang_id' => 'bail|required|string|unique:m_barang,barang_kode',
+            'barang_kode' => 'bail|required|string|unique:m_barang,barang_kode',
             'barang_nama' => 'required|string|max:100',
             'kategori_id' => 'required|integer',
             'harga_beli' => 'required|integer',
             'harga_jual' => 'required|integer',
         ]);
         m_barang::create([
-            'barang_id' => $request->barang_kode,
+            'barang_kode' => $request->barang_kode,
             'barang_nama' => $request->barang_nama,
             'kategori_id' => $request->kategori_id,
             'harga_beli' => $request->harga_beli,
@@ -118,7 +115,7 @@ class BarangController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'barang_id' => 'bail|required|string|unique:m_barang,barang_kode,' . $id . ',barang_id',
+            'barang_kode' => 'bail|required|string|unique:m_barang,barang_kode,' . $id . ',barang_id',
             'barang_nama' => 'required|string|max:100',
             'kategori_id' => 'required|integer',
             'harga_beli' => 'required|integer',
@@ -126,7 +123,7 @@ class BarangController extends Controller
         ]);
 
         m_barang::find($id)->update([
-            'barang_id' => $request->barang_kode,
+            'barang_kode' => $request->barang_kode,
             'barang_nama' => $request->barang_nama,
             'kategori_id' => $request->kategori_id,
             'harga_beli' => $request->harga_beli,
