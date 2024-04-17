@@ -10,10 +10,6 @@ class m_kategori extends Model
 {
     use HasFactory;
 
-    // public function barang(): HasMany
-    // {
-    //     return $this->hasMany(m_barang::class, 'barang_id', 'barang_id');
-    // }
     protected $table = 'm_kategori';
     protected $primaryKey = 'kategori_id';
 

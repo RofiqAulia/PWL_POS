@@ -13,4 +13,10 @@ class BarangModel extends Model
     protected $primaryKey = 'barang_id';
 
     protected $guarded = [];
+
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriModel::class, 'kategori_id');
+    }
+
 }
