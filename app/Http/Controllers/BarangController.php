@@ -29,12 +29,15 @@ class BarangController extends Controller
     }
     public function list(Request $request)
     {
-        $barangs = m_barang::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'kategori_id')->with('kategori');
+        $barangs = m_barang::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'kategori_id', 'kategori_nama')->with('kategori');
 
         if ($request->kategori_id) {
             $barangs->where('kategori_id', $request->kategori_id);
         }
 
+        if ($request->kategori_nama) {
+            $barangs->where('kategori_nama', $request->kategori_nama);
+        }
         return DataTables::of($barangs)
             ->addIndexColumn()
             ->addColumn('aksi', function ($barang) {
