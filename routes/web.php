@@ -11,7 +11,10 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagerController;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Stmt\Return_;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -122,10 +125,6 @@ Route::post('/proses_login', [AuthController::class, 'proses_login'])->name('pro
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
 
-// Kita atur juga untuk middleware menggunakan group pada routing
-// didalamnya terdapat group untuk mengecek kondisi login
-// jika user yang login merupakan admin maka akan diarahkan ke AdminController
-// jika user yang login merupakan manager maka akan diarahkan ke UserController
 Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['cek_login:1']], function () {
