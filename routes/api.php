@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\LogoutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/register', RegisterController::class)->name('register');
-Route::post('/login', LoginController::class)->name('login');    
+Route::post('/login', LoginController::class)->name('login');
+Route::post('/logout', LogoutController::class)->name('logout');    
 
 // Routes untuk User Controller
 Route::get('users', [UserController::class, 'index']);
