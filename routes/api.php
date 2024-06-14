@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\LogoutController;
 use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\Api\BarangController;
 use App\Http\Controllers\Api\KategoriController;
+use App\Http\Controllers\Api\TransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,9 @@ Route::post('/register', RegisterController::class)->name('register');
 Route::post('/login', LoginController::class)->name('login');
 Route::post('/logout', LogoutController::class)->name('logout');    
 Route::post('/register1', App\Http\Controllers\Api\RegisterController::class)->name('register1');
+
+Route::post('/transaksi', TransaksiController::class)->name('transaksi');
+Route::get('/transaksi/{id}', TransaksiController::class, 'show')->name('transaksi');
 
 // Routes untuk User Controller
 Route::get('users', [UserController::class, 'index']);

@@ -10,7 +10,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\TransaksiController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\Return_;
@@ -118,6 +120,19 @@ Route::group(['prefix' => 'penjualan'], function () {
     Route::delete('/{id}', [PenjualanController::class, 'destroy']);
 });
 
+Route::group(['prefix' => 'transaksi'], function () {
+    Route::get('/', [TransaksiController::class, 'index']); //menampilkan halaman awal transaksi
+    Route::post('/list', [TransaksiController::class, 'list']); //menampilkan data transaksi dalam bentuk json untuk database
+    Route::get('create', [TransaksiController::class, 'create']); //menampilkan halaman form tambah transaksi
+    Route::post('/', [TransaksiController::class, 'store']); //menyimpan data transaksi baru
+    Route::get('/{id}', [TransaksiController::class, 'show']); //menampilkan detail transaksi 
+    Route::get('/{id}/edit', [TransaksiController::class, 'edit']); //menampilkan halaman form edit transaksi
+    Route::put('/{id}', [TransaksiController::class, 'update']); //menyimpan perubahan data transaksi
+    Route::delete('/{id}', [TransaksiController::class, 'destroy']); //menghapus data transaksi
+});
+
+
+
 // This route is Auth Controller
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
@@ -134,3 +149,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('manager', ManagerController::class);
     });
 });
+
+Route::get('file-upload', [FileUploadController::class, 'index'])->name('file-upload.index');
+Route::get('file-upload/create', [FileUploadController::class, 'create'])->name('file-upload.create');
+Route::post('file-upload', [FileUploadController::class, 'store'])->name('file-upload.store');
+Route::get('file-upload/{id}', [FileUploadController::class, 'show'])->name('file-upload.show');
+Route::get('file-upload/{id}/edit', [FileUploadController::class, 'edit'])->name('file-upload.edit');
+Route::put('file-upload/{id}', [FileUploadController::class, 'update'])->name('file-upload.update');
+Route::delete('file-upload/{id}', [FileUploadController::class, 'destroy'])->name('file-upload.destroy');
