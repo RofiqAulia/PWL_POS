@@ -13,6 +13,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UploadedFileController;
+
+use App\Http\Controllers\FormUploadController;
+use App\Http\Controllers\FormImageController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\Return_;
@@ -150,10 +154,5 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::get('file-upload', [FileUploadController::class, 'index'])->name('file-upload.index');
-Route::get('file-upload/create', [FileUploadController::class, 'create'])->name('file-upload.create');
-Route::post('file-upload', [FileUploadController::class, 'store'])->name('file-upload.store');
-Route::get('file-upload/{id}', [FileUploadController::class, 'show'])->name('file-upload.show');
-Route::get('file-upload/{id}/edit', [FileUploadController::class, 'edit'])->name('file-upload.edit');
-Route::put('file-upload/{id}', [FileUploadController::class, 'update'])->name('file-upload.update');
-Route::delete('file-upload/{id}', [FileUploadController::class, 'destroy'])->name('file-upload.destroy');
+Route::get('/file-upload',[FileUploadController::class,'fileUpload']);
+Route::post('/file-upload',[FileUploadController::class,'prosesFileUpload']);

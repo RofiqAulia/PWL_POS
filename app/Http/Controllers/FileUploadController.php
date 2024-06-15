@@ -1,120 +1,87 @@
 <?php
 
-// namespace App\Http\Controllers;
-
-// use Illuminate\Http\Request;
-
-// class FileUploadController extends Controller
-// {
-//     //
-//     public function fileUpload(){
-//         return view('file-upload');
-//     }
-
-//     public function prosesFileUpload(Request $request)
-//     {
-        
-//         $request->validate([
-//             'berkas' => 'required|file|image|max:5000', // Validate file upload
-//             'nama_gambar' => 'required', // Validate nama_gambar field
-//         ]);
-
-        
-//         $extfile = $request->berkas->getClientOriginalExtension();
-//         $namafile = time() . $request->input('nama_gambar') . '.' . $extfile;
-
-        
-//         $path = $request->berkas->storeAs('public/image-uploaded', $namafile);
-
-        
-//         $imageUrl = asset('storage/image-uploaded/' . $namafile);
-
-//         $namaFile = $request->nama_gambar . "." . $extfile;
-
-        
-//         return view('uploaded-image', ['imageUrl' => $imageUrl, 'nama_file' => $namaFile]);
-//     }
-// }
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UploadedFile;
 
 class FileUploadController extends Controller
 {
-    public function index()
+    public function fileUpload()
     {
-        $files = UploadedFile::all();
-        return view('file-upload.index', compact('files'));
-    }
+        $breadcrumb = (object)[
+            'title' => 'Tambah File Upload',
+            'list' => ['Home', 'File Upload', 'Tambah']
+        ];
 
-    public function create()
-    {
-        return view('file-upload.create');
-    }
+        $page = (object)[
+            'title' => 'Tambah File Upload Baru'
+        ];
 
-    public function store(Request $request)
+        $activeMenu = 'fileUpload';
+
+        return view('fileUpload', [
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu
+        ]);
+    }
+    public function prosesFileUpload(Request $request)
     {
         $request->validate([
-            'berkas' => 'required|file|image|max:5000',
-            'nama_gambar' => 'required',
+            'berkas' => 'required|file|image|max:500',
+        ]);
+        $breadcrumb = (object)[
+            'title' => 'Show File Upload',
+            'list' => ['Home', 'File Upload', 'Show']
+        ];
+
+        $page = (object)[
+            'title' => 'Show File Upload Baru'
+        ];
+
+        $activeMenu = 'fileUpload';
+        $namaFile = $request->input('filename') . '.' . $request->berkas->getClientOriginalExtension();
+
+        $path = $request->berkas->move('berkas', $namaFile);
+        $path = str_replace("\\", "//", $path);
+
+        $path = asset('berkas/' . $namaFile);
+        return view('show-image', [
+            'fileName' => $namaFile,
+            'path' => $path,
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'activeMenu' => $activeMenu
         ]);
 
-        $extfile = $request->berkas->getClientOriginalExtension();
-        $namafile = time() . '_' . $request->input('nama_gambar') . '.' . $extfile;
-        $path = $request->berkas->storeAs('public/image-uploaded', $namafile);
-        $imageUrl = asset('storage/image-uploaded/' . $namafile);
 
-        $file = new UploadedFile();
-        $file->name = $request->input('nama_gambar');
-        $file->path = $imageUrl;
-        $file->save();
+        // $path = $request->berkas->store('upload');
+        // $path = $request->berkas->storeAs('public',$namaFile);
+        // echo $request->berkas->getClientOriginalName()."lolos validasi";
 
-        return redirect()->route('file-upload.index');
-    }
+        // dump($request->berkas);
+        // dump($request->file('file'));
+        // return "Pemrosesan file upload di sini";
 
-    public function show($id)
-    {
-        $file = UploadedFile::findOrFail($id);
-        return view('file-upload.show', compact('file'));
-    }
-
-    public function edit($id)
-    {
-        $file = UploadedFile::findOrFail($id);
-        return view('file-upload.edit', compact('file'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $file = UploadedFile::findOrFail($id);
-        $request->validate([
-            'nama_gambar' => 'required',
-        ]);
-
-        if ($request->hasFile('berkas')) {
-            $request->validate([
-                'berkas' => 'file|image|max:5000',
-            ]);
-
-            $extfile = $request->berkas->getClientOriginalExtension();
-            $namafile = time() . '_' . $request->input('nama_gambar') . '.' . $extfile;
-            $path = $request->berkas->storeAs('public/image-uploaded', $namafile);
-            $imageUrl = asset('storage/image-uploaded/' . $namafile);
-            $file->path = $imageUrl;
-        }
-
-        $file->name = $request->input('nama_gambar');
-        $file->save();
-
-        return redirect()->route('file-upload.index');
-    }
-
-    public function destroy($id)
-    {
-        $file = UploadedFile::findOrFail($id);
-        $file->delete();
-        return redirect()->route('file-upload.index');
+        // if($request->hasFile('berkas'))
+        // {
+        //     echo "path(): ".$request->berkas->path();
+        //     echo "<br>";
+        //     echo "extension(): ".$request->berkas->extension(); 
+        //     echo "<br>";
+        //     echo "getClientOriginalExtension(): ".
+        //         $request->berkas->getClientOriginalExtension();
+        //     echo "<br>";
+        //     echo "getMimeType(): ".$request->berkas->getMimeType(); 
+        //     echo "<br>";
+        //     echo "getClientOriginalName(): ".
+        //         $request->berkas->getClientOriginalName();
+        //     echo "<br>";
+        //     echo "getSize(): ".$request->berkas->getSize();
+        // }
+        // else
+        // {
+        //     echo "Tidak ada berkas yang diupload";
+        // }
     }
 }
-

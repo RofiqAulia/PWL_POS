@@ -1,34 +1,36 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateMUserTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('m_user', function (Blueprint $table) {
-            $table->id('user_id');
-            $table->unsignedBigInteger('level_id')->index();
-            $table->string('username', 20)->unique();
-            $table->string('nama', 100);
-            $table->string('password');
-            $table->timestamps();
-
-            // Mendefinisikan Foreign Key pada kolom level_id mengacu pada kolom level_id di table m_level
-            $table->foreign('level_id')->references('level_id')->on('m_level');
-        });
+        if (!Schema::hasTable('m_user')) {
+            Schema::create('m_user', function (Blueprint $table) {
+                $table->id('user_id');
+                $table->foreignId('level_id')->constrained('m_levels');
+                $table->string('username', 20)->unique();
+                $table->string('nama', 100);
+                $table->string('password');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('m_user');
     }
-};
+}

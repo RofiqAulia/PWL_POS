@@ -58,6 +58,13 @@
             <p>Transaksi Penjualan</p>
             </a>
         </li>
+        <li class="nav-header">Data File</li>
+        <li class="nav-item">
+        <a href="{{ url('/file-upload') }}" class="nav-link {{ ($activeMenu == 'file-upload')? 'active' : '' }} ">
+        <i class="nav-icon far fa-bookmark"></i>
+        <p>File Upload</p>
+        </a>
+        </li>
     </ul>
 </nav>
 </div>
